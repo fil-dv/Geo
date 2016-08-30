@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Geo</string>
+    <string name="provider_gps">GPS: </string>
+    <string name="provider_network">Сеть: </string>
+    <string name="location_settings">Гео настройки</string>
+    <string name="get_nearly">Получить ближайшие объекты</string>
+</resources>
