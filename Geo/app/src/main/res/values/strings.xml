@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">Geo</string>
-    <string name="provider_gps">GPS: </string>
-    <string name="provider_network">Сеть: </string>
     <string name="location_settings">Гео настройки</string>
     <string name="get_nearly">Получить ближайшие объекты</string>
+    <string name="nearlyList">Список ближайших объектов:</string>
+    <string name="obj1">Объект 1</string>
+    <string name="obj2">Объект 2</string>
+    <string name="obj3">Объект 3</string>
+    <string name="obj_new">Создать новый объект</string>
+    <string name="editor_text">Редактирование объекта</string>
+    <string name="edit_id">ID объекта:</string>
+    <string name="edit_city">Город:</string>
+    <string name="edit_region">Область:</string>
+    <string name="edit_street">Улица:</string>
+    <string name="edit_price">Цена:</string>
+    <string name="edit_square">Площадь:</string>
+    <string name="edit_save">Сохранить</string>
+    <string name="coord_latitude">Широта:</string>
+    <string name="coord_longtitude">Долгота:</string>
 </resources>

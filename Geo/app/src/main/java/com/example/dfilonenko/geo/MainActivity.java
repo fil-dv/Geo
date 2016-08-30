@@ -10,41 +10,46 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView tvEnabledGPS;
-    TextView tvStatusGPS;
     TextView tvLocationGpsLat;
     TextView tvLocationGpsLong;
-    TextView tvLocationGpsTime;
+    TextView tvEnabledNet;
     TextView tvLocationNetLat;
     TextView tvLocationNetLong;
-    TextView tvEnabledNet;
-    //TextView tvStatusNet;
-    TextView tvLocationNet;
+    Button btnGetNearly;
+
+    boolean isGpsEnable;
+    boolean isNetEnable;
+    boolean isLatSet;
+    boolean isLongSet;
 
     private LocationManager locationManager;
-    StringBuilder sbGPS = new StringBuilder();
-    StringBuilder sbNet = new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvEnabledGPS = (TextView) findViewById(R.id.txt_GPS);
-        //tvStatusGPS = (TextView) findViewById(R.id.tvStatusGPS);
         tvLocationGpsLat = (TextView) findViewById(R.id.LocationGpsLat);
         tvLocationGpsLong = (TextView) findViewById(R.id.LocationGpsLong);
-        tvLocationGpsTime = (TextView) findViewById(R.id.LocationGpsTime);
+        tvEnabledNet = (TextView) findViewById(R.id.txt_Net);
         tvLocationNetLat = (TextView) findViewById(R.id.LocationNetLat);
         tvLocationNetLong = (TextView) findViewById(R.id.LocationNetLong);
-        tvEnabledNet = (TextView) findViewById(R.id.txt_Net);
-        //tvStatusNet = (TextView) findViewById(R.id.tvStatusNet);
-        tvLocationNet = (TextView) findViewById(R.id.tvLocationNet);
+        btnGetNearly = (Button) findViewById(R.id.btn_get_nearly);
+
+        isGpsEnable = false;
+        isNetEnable = false;
+        isLatSet = false;
+        isLongSet = false;
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        btnGetNearly.setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +80,15 @@ public class MainActivity extends Activity {
         @Override
         public void onLocationChanged(Location location) {
             showLocation(location);
+            if(isNetEnable == true || isGpsEnable == true){
+                if(isLongSet == true  && isLatSet == true) {
+                    btnGetNearly.setEnabled(true);
+                }else{
+                    btnGetNearly.setEnabled(false);
+                }
+            }else{
+                btnGetNearly.setEnabled(false);
+            }
         }
 
         @Override
@@ -94,78 +108,63 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-           /* if (provider.equals(LocationManager.GPS_PROVIDER)) {
-                tvStatusGPS.setText("Status: " + String.valueOf(status));
-            } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
-                tvStatusNet.setText("Status: " + String.valueOf(status));
-            }*/
-        }
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
 
     private void showLocation(Location location) {
-        if (location == null)
+        if (location == null) {
+            isLatSet = false;
+            isLongSet = false;
             return;
+        }
         if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
             tvLocationGpsLat.setText("Широта: " + location.getLatitude());
+            isLatSet = true;
             tvLocationGpsLong.setText("Долгота: " + location.getLongitude());
-            //tvLocationGpsTime.setText(String.format("%3$tT", new Date(location.getTime())));
+            isLongSet = true;
+
         } else if (location.getProvider().equals(
                 LocationManager.NETWORK_PROVIDER)) {
             tvLocationNetLat.setText("Широта: " + location.getLatitude());
+            isLatSet = true;
             tvLocationNetLong.setText("Долгота: " + location.getLongitude());
-        }
-    }
-
-    private String formatLocation(Location location) {
-        if (location == null) {
-            return "";
-        }
-        else {
-            return String.format("%3$tT", new Date(location.getTime()));
+            isLongSet = true;
         }
     }
 
     private void checkEnabled() {
         if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            isGpsEnable = true;
             tvEnabledGPS.setTextColor(Color.GREEN);
             tvEnabledGPS.setText("GPS доступен.");
         }else{
+            isGpsEnable = false;
             tvEnabledGPS.setTextColor(Color.RED);
             tvEnabledGPS.setText("GPS не доступен.");
         }
 
         if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            isNetEnable = true;
             tvEnabledNet.setTextColor(Color.GREEN);
             tvEnabledNet.setText("Интернет доступен.");
         }else{
+            isNetEnable = false;
             tvEnabledNet.setTextColor(Color.RED);
             tvEnabledNet.setText("Интернет не доступен.");
         }
     }
+
     public void onClickLocationSettings(View view) {
         startActivity(new Intent(
                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     };
 
-}
-
-
-   /* private void checkEnabled() {
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            tvEnabledGPS.setTextColor(Color.GREEN);
-            tvEnabledGPS.setText("GPS доступен.");
-        }else{
-            tvEnabledGPS.setTextColor(Color.RED);
-            tvEnabledGPS.setText("GPS не доступен.");
-        }
-
-        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            tvEnabledNet.setTextColor(Color.GREEN);
-            tvEnabledNet.setText("Интернет доступен.");
-        }else{
-            tvEnabledGPS.setTextColor(Color.RED);
-            tvEnabledGPS.setText("Интернет не доступен.");
+    @Override
+    public void onClick(View view) {
+        if (view == btnGetNearly) {
+            Intent intent = new Intent(MainActivity.this, GetNearlyActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
-       */
+}
