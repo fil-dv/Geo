@@ -109,4 +109,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="edit_phone">телефон:</string>
 </resources>

@@ -28,6 +28,7 @@ public class GetNearlyActivity extends AppCompatActivity implements View.OnClick
         btn_3 = (Button) findViewById(R.id.btn_obj_3);
         btn_1.setOnClickListener(this);
         btn_new = (Button) findViewById(R.id.btn_obj_new);
+        btn_new.setOnClickListener(this);
 
         areaList = getJson();
     }

@@ -39,12 +39,12 @@
     </LinearLayout>-->
 
     <LinearLayout
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="7dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="230px"
+            android:layout_width="70dp"
             android:text="@string/edit_region"
             android:gravity="center_vertical"
             android:layout_height="match_parent" />
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="230px"
+            android:layout_width="70dp"
             android:text="@string/edit_city"
             android:gravity="center_vertical"
             android:layout_height="match_parent" />
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="230px"
+            android:layout_width="70dp"
             android:text="@string/edit_street"
             android:gravity="center_vertical"
             android:layout_height="match_parent" />
@@ -93,6 +93,24 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="70dp"
+            android:text="@string/edit_phone"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:id="@+id/txt_edit_squear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType = "text"/>
+    </LinearLayout>
+
+    <!--<LinearLayout
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -126,20 +144,24 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType = "text"/>
-    </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickLocationSettings"
-        android:text="@string/make_a_photo" />
+    </LinearLayout>-->
 
     <Button
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/btn_edit_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClickSave"
         android:text="@string/edit_save" />
+
+    <Button
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickPhoto"
+        android:text="@string/make_a_photo" />
+
+
 
 
 

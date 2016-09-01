@@ -7,53 +7,84 @@ import java.math.BigDecimal;
  */
 
 public class Area {
-    public int _areaID;
-    //public int _areaTypeID;
-    //public String _areaDescription;
-    public String _ownerName;
-    public String _contactaName;
-    public String _contactaPhone1;
-    //public String _contactaPhone2;
-    //public String _contactaPhone3;
-    //public String _legalAddressRegion;
-    //public String _legalAddressCity;
-    //public String _legalAddressStreet;
-    public String _rentAreaAddressRegion;
-    public String _rentAreaAddressCity;
-    public String _rentAreaAddressStreet;
-    public BigDecimal _squareArea;
-    public BigDecimal _monthPrice;
-    //public Boolean _isAvailable;
-    //public int _rating;
-    public BigDecimal _latitude;
-    public BigDecimal _longitude;
+    private int _areaID;
+    private String _contactaPhone1;
+    private String _rentAreaAddressRegion;
+    private String _rentAreaAddressCity;
+    private String _rentAreaAddressStreet;
+    private BigDecimal _latitude;
+    private BigDecimal _longitude;
 
-    public Area(int areaID, /*int areaTypeID, String areaDescription,*/ String ownerName,
-                String contactaName,String contactaPhone1,/*String contactaPhone2,
-                String contactaPhone3, String legalAddressRegion, String legalAddressCity,
-                String legalAddressStreet,*/ String rentAreaAddressRegion, String rentAreaAddressCity,
-                String rentAreaAddressStreet, BigDecimal squareArea,BigDecimal monthPrice,
-                /*Boolean isAvailable, int rating,*/BigDecimal latitude, BigDecimal longitude){
+    public Area(int areaID, String contactaPhone1, String rentAreaAddressRegion,
+                String rentAreaAddressCity, String rentAreaAddressStreet, BigDecimal latitude, BigDecimal longitude){
 
         _areaID = areaID;
-        //_areaTypeID = areaTypeID;
-        //_areaDescription = areaDescription;
-        _ownerName = ownerName;
-        _contactaName = contactaName;
         _contactaPhone1 = contactaPhone1;
-        //_contactaPhone2 = contactaPhone2;
-        //_contactaPhone3 = contactaPhone3;
-        //_legalAddressRegion = legalAddressRegion;
-        //_legalAddressCity = legalAddressCity;
-        //_legalAddressStreet = legalAddressStreet;
         _rentAreaAddressRegion = rentAreaAddressRegion;
         _rentAreaAddressCity = rentAreaAddressCity;
         _rentAreaAddressStreet = rentAreaAddressStreet;
-        _squareArea = squareArea;
-        _monthPrice = monthPrice;
-        //_isAvailable = isAvailable;
-        //_rating = rating;
         _latitude = latitude;
+        _longitude = longitude;
+    }
+
+    public Area(int areaID){
+
+        _areaID = areaID;
+    }
+
+    public int GetAreaID(){
+        return _areaID;
+    }
+
+    public void SetAreaID(int ID){
+        _areaID = ID;
+    }
+
+    public String GetContactaPhone1(){
+        return _contactaPhone1;
+    }
+
+    public void SetContactaPhone1(String contactaPhone1){
+        _contactaPhone1 = contactaPhone1;
+    }
+
+    public String GetRentAreaAddressRegion(){
+        return _rentAreaAddressRegion;
+    }
+
+    public void SetRentAreaAddressRegion(String rentAreaAddressRegion){
+        _rentAreaAddressRegion = rentAreaAddressRegion;
+    }
+
+    public String GetRentAreaAddressCity(){
+        return _rentAreaAddressCity;
+    }
+
+    public void SetRentAreaAddressCity(String rentAreaAddressCity){
+        _rentAreaAddressCity = rentAreaAddressCity;
+    }
+
+    public String GetRentAreaAddressStreet(){
+        return _rentAreaAddressStreet;
+    }
+
+    public void SetRentAreaAddressStreet(String rentAreaAddressStreet){
+        _rentAreaAddressStreet = rentAreaAddressStreet;
+    }
+
+    public BigDecimal GetLatitude(){
+        return _latitude;
+    }
+
+    public void SetLatitude(BigDecimal latitude){
+        _latitude = latitude;
+    }
+
+    public BigDecimal GetLongitude(){
+        return _longitude;
+    }
+
+    public void SetLongitude(BigDecimal longitude){
         _longitude = longitude;
     }
 }
