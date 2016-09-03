@@ -1,6 +1,7 @@
 package com.example.dfilonenko.geo;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,12 +9,16 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener {
+
+    MyTask mt;
 
     TextView tvEnabledGPS;
     TextView tvLocationGpsLat;
@@ -50,6 +55,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         btnGetNearly.setOnClickListener(this);
+
+        //ProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -161,10 +168,36 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+
         if (view == btnGetNearly) {
+            mt = new MyTask();
+            mt.execute();
+        }
+    }
+
+    public class MyTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                TimeUnit.SECONDS.sleep(3);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
             Intent intent = new Intent(MainActivity.this, GetNearlyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
         }
     }
 }

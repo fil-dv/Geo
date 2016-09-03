@@ -64,11 +64,26 @@
     </Button>
 
     <Button
-        android:layout_marginTop="120px"
+        android:layout_marginTop="70px"
         android:enabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/get_nearly"
         android:id="@+id/btn_get_nearly" />
+
+    <LinearLayout
+        android:layout_marginTop="30px"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <!--<ProgressBar
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ProgressBar>-->
+
+    </LinearLayout>
 
 </LinearLayout>
