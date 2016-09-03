@@ -17,8 +17,12 @@
     <string name="edit_save">Сохранить</string>
     <string name="coord_latitude">Широта:</string>
     <string name="coord_longtitude">Долгота:</string>
-    <string name="make_a_photo">Сделать фото</string>
+    <string name="make_a_photo">Перейти к фотосессии</string>
     <string name="title_activity_editor">EditorActivity</string>
+
+    <string name="photo">Новое фото</string>
+    <!--<string name="video">Video</string>-->
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -110,4 +114,5 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="edit_phone">телефон:</string>
+    <string name="finishSet">Завершить фотосессию</string>
 </resources>

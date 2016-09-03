@@ -25,8 +25,10 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickMakePhoto(View view) {
-        startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE ));
+    public void onClickPhoto(View view) {
+        Intent intent = new Intent(EditorActivity.this, PhotoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     };
 
 }
