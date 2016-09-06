@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -19,12 +20,17 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -190,7 +196,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected String doInBackground(Void... params) {
             String responseString = null;
-            String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/51/31";
+            String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/50/30";
             responseString = getJSON(myUrl, 10000000);
 
                 /*URL url = new URL(myUrl);
@@ -211,15 +217,56 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
         @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
+        protected void onPostExecute(String str) {
+            super.onPostExecute(str);
 
 
+            //String str = "18:0979176312:Чернігівська:м. Ніжин:вул. Незалежності буд. 34 кв. 46#20:0673687411:Чернігівська:м. Ніжин:вул. Шевченка буд. 52#21:0669974095:Чернігівська:м. Ніжин#вул. Шевченка буд. 101 кв. 73#";
+
+            String[] firstArr = str.split("#");
+            String[] areaArr1 = firstArr[0].split(":");
+            String[] areaArr2 = firstArr[1].split(":");
+            String[] areaArr3 = firstArr[2].split(":");
+            try {
+                int id1  = Integer.parseInt(areaArr1[0].replaceFirst("\"",""));
+                int id2  = Integer.parseInt(areaArr2[0]);
+                int id3  = Integer.parseInt(areaArr3[0]);
+
+                Area area1 = new Area(id1, areaArr1[1], areaArr1[2], areaArr1[3], areaArr1[4]);
+                Area area2 = new Area(id2, areaArr2[1], areaArr2[2], areaArr2[3], areaArr2[4]);
+                Area area3 = new Area(id3, areaArr3[1], areaArr3[2], areaArr3[3], areaArr3[4]);
+
+                ArrayList<Area> areaList = new ArrayList<Area>();
+                areaList.add(area1);
+                areaList.add(area2);
+                areaList.add(area3);
+
+                Mediator.SetAreaList(areaList);
+                TimeUnit.SECONDS.sleep(1);
+
+            }catch(NumberFormatException nfe) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, nfe);
+            }catch (Exception ex){
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+            //JSONObject dataJsonObj = null;
+            /*try {
+                JSONObject areaList = new JSONObject(strJson);
+                JSONArray areas = areaList.getJSONArray("areas");
+
+                JSONObject area_1 = areas.getJSONObject(0);
+                JSONObject area_2 = areas.getJSONObject(1);
+                JSONObject area_3 = areas.getJSONObject(2);
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }*/
 
             Intent intent = new Intent(MainActivity.this, GetNearlyActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-
         }
     }
 

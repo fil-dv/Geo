@@ -12,19 +12,19 @@ public class Area {
     private String _rentAreaAddressRegion;
     private String _rentAreaAddressCity;
     private String _rentAreaAddressStreet;
-    private BigDecimal _latitude;
-    private BigDecimal _longitude;
+   // private BigDecimal _latitude;
+   // private BigDecimal _longitude;
 
     public Area(int areaID, String contactaPhone1, String rentAreaAddressRegion,
-                String rentAreaAddressCity, String rentAreaAddressStreet, BigDecimal latitude, BigDecimal longitude){
+                String rentAreaAddressCity, String rentAreaAddressStreet/*, BigDecimal latitude, BigDecimal longitude*/){
 
         _areaID = areaID;
         _contactaPhone1 = contactaPhone1;
         _rentAreaAddressRegion = rentAreaAddressRegion;
         _rentAreaAddressCity = rentAreaAddressCity;
         _rentAreaAddressStreet = rentAreaAddressStreet;
-        _latitude = latitude;
-        _longitude = longitude;
+       // _latitude = latitude;
+       // _longitude = longitude;
     }
 
     public Area(int areaID){
@@ -72,7 +72,7 @@ public class Area {
         _rentAreaAddressStreet = rentAreaAddressStreet;
     }
 
-    public BigDecimal GetLatitude(){
+   /* public BigDecimal GetLatitude(){
         return _latitude;
     }
 
@@ -86,5 +86,5 @@ public class Area {
 
     public void SetLongitude(BigDecimal longitude){
         _longitude = longitude;
-    }
+    }*/
 }

@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/obj1"
+        android:onClick="btn1_onClick"
         android:id="@+id/btn_obj_1" />
 
     <Button
@@ -35,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/obj2"
+        android:onClick="btn2_onClick"
         android:id="@+id/btn_obj_2" />
 
     <Button
@@ -42,13 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/obj3"
+        android:onClick="btn3_onClick"
         android:id="@+id/btn_obj_3"/>
 
     <Button
-        android:layout_marginTop="120px"
+        android:layout_marginTop="70px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/obj_new"
+        android:onClick="btnNew_onClick"
         android:id="@+id/btn_obj_new"/>
 
 </LinearLayout>

@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class GetNearlyActivity extends AppCompatActivity implements View.OnClickListener {
+public class GetNearlyActivity extends AppCompatActivity{
 
     Button btn_1;
     Button btn_2;
@@ -22,55 +22,39 @@ public class GetNearlyActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_get_nearly);
 
         btn_1 = (Button) findViewById(R.id.btn_obj_1);
-        btn_1.setOnClickListener(this);
         btn_2 = (Button) findViewById(R.id.btn_obj_2);
-        btn_1.setOnClickListener(this);
         btn_3 = (Button) findViewById(R.id.btn_obj_3);
-        btn_1.setOnClickListener(this);
         btn_new = (Button) findViewById(R.id.btn_obj_new);
-        btn_new.setOnClickListener(this);
-
-        areaList = getJson();
+        areaList = Mediator.GetAreaList();
+        btn_1.setText(areaList.get(0).GetRentAreaAddressCity() + ", " + areaList.get(0).GetRentAreaAddressStreet());
+        btn_2.setText(areaList.get(1).GetRentAreaAddressCity() + ", " + areaList.get(1).GetRentAreaAddressStreet());
+        btn_3.setText(areaList.get(2).GetRentAreaAddressCity() + ", " +  areaList.get(2).GetRentAreaAddressStreet());
     }
 
-    ArrayList<Area> getJson(){
-        return  null;
+    public void btn1_onClick(View view) {
+        Mediator.SetSelectedArea(0);
+        InitActivity();
     }
 
-    @Override
-    public void onClick(View view) {
+    public void btn2_onClick(View view) {
+        Mediator.SetSelectedArea(1);
+        InitActivity();
+    }
 
+    public void btn3_onClick(View view) {
+        Mediator.SetSelectedArea(2);
+        InitActivity();
+    }
+
+    public void btnNew_onClick(View view) {
+        Mediator.SetSelectedArea(-1);
+        InitActivity();
+    }
+
+    void InitActivity(){
         Intent intent = new Intent(GetNearlyActivity.this, EditorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
-        if(areaList != null) {
-
-            /*Intent intent = new Intent(GetNearlyActivity.this, EditorActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-*/
-            switch (view.getId()) {
-                case R.id.btn_obj_1:
-                    EditorActivity.initViews(areaList.get(0)); //InitEditorActivity(areaList.get(0));
-                    break;
-                case R.id.btn_obj_2:
-                    EditorActivity.initViews(areaList.get(1)); //InitEditorActivity(areaList.get(1));
-                    break;
-                case R.id.btn_obj_3:
-                    EditorActivity.initViews(areaList.get(2)); //InitEditorActivity(areaList.get(2));
-                    break;
-                case R.id.btn_obj_new:
-                    EditorActivity.initViews(null); //InitEditorActivity(null);
-                    break;
-            }
-        }
     }
-
-    void InitEditorActivity(Area area){
-
-
-    }
-
 
 }

@@ -8,14 +8,30 @@ import java.util.ArrayList;
 
 public final class Mediator {
 
-    private ArrayList<Area> _areaList;
+    private static ArrayList<Area> _areaList;
+    private static int _selectedArea;
 
-    public void SetAreaList(ArrayList<Area> areaList){
+    public static int GetSelectedArea(){
+
+        return  _selectedArea;
+    }
+
+    public static void SetSelectedArea(int index){
+
+        _selectedArea = index;
+    }
+
+    public static ArrayList<Area> GetAreaList(){
+
+        return  _areaList;
+    }
+
+    public static void SetAreaList(ArrayList<Area> areaList){
 
         _areaList = areaList;
     }
 
-    public Area GetArea(int index){
+    public static Area GetArea(int index){
 
         if(index > 0 && index < _areaList.size()){
 
