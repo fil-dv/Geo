@@ -33,7 +33,7 @@ public final class Mediator {
 
     public static Area GetArea(int index){
 
-        if(index > 0 && index < _areaList.size()){
+        if(index >= 0 && index < _areaList.size()){
 
             return _areaList.get(index);
         }else{

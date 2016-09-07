@@ -49,12 +49,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
     boolean isLatSet;
     boolean isLongSet;
 
+    double _latitudeGPS;
+    double _longtitudeGPS;
+    double _latitudeNet;
+    double _longtitudeNet;
+
     private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         tvEnabledGPS = (TextView) findViewById(R.id.txt_GPS);
         tvLocationGpsLat = (TextView) findViewById(R.id.LocationGpsLat);
         tvLocationGpsLong = (TextView) findViewById(R.id.LocationGpsLong);
@@ -67,6 +73,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         isNetEnable = false;
         isLatSet = false;
         isLongSet = false;
+
+        _latitudeGPS = 0;
+        _longtitudeGPS = 0;
+        _latitudeNet = 0;
+        _longtitudeNet = 0;
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -142,16 +153,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
             tvLocationGpsLat.setText("Широта: " + location.getLatitude());
+            _latitudeGPS = location.getLatitude();
             isLatSet = true;
+
             tvLocationGpsLong.setText("Долгота: " + location.getLongitude());
             isLongSet = true;
+            _longtitudeGPS = location.getLongitude();
 
-        } else if (location.getProvider().equals(
-                LocationManager.NETWORK_PROVIDER)) {
+        } else if (location.getProvider().equals(LocationManager.NETWORK_PROVIDER)) {
             tvLocationNetLat.setText("Широта: " + location.getLatitude());
             isLatSet = true;
+            _latitudeNet = location.getLatitude();
             tvLocationNetLong.setText("Долгота: " + location.getLongitude());
             isLongSet = true;
+            _longtitudeNet = location.getLongitude();
         }
     }
 
@@ -196,7 +211,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected String doInBackground(Void... params) {
             String responseString = null;
-            String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/50/30";
+            String lat = "";
+            String lon = "";
+            if(isGpsEnable){
+                if(_latitudeGPS > 0 && _longtitudeGPS > 0){
+                    lat = String.valueOf(_latitudeGPS);
+                    lon = String.valueOf(_longtitudeGPS);
+                }
+            }
+            if (lat == "" || lon == ""){
+                lat = String.valueOf(_latitudeNet);
+                lon = String.valueOf(_longtitudeNet);
+            }
+
+            String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/" + lat + "/" + lon + "/";
+            //String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/51/31";
             responseString = getJSON(myUrl, 10000000);
 
                 /*URL url = new URL(myUrl);
