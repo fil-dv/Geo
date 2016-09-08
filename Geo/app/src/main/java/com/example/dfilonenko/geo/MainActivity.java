@@ -213,6 +213,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String responseString = null;
             String lat = "";
             String lon = "";
+
             if(isGpsEnable){
                 if(_latitudeGPS > 0 && _longtitudeGPS > 0){
                     lat = String.valueOf(_latitudeGPS);
@@ -224,22 +225,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 lon = String.valueOf(_longtitudeNet);
             }
 
+            Mediator.SetLatitude(lat);
+            Mediator.SetLongtitude(lon);
+
             String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/" + lat + "/" + lon + "/";
-            //String myUrl = "http://www.geo.somee.com/api/Coord/GetNearlyAreas/51/31";
             responseString = getJSON(myUrl, 10000000);
-
-                /*URL url = new URL(myUrl);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                if(conn.getResponseCode() == HttpsURLConnection.HTTP_OK){
-                   responseString = conn.getContent().toString();
-                }
-                else {
-                    //response = "FAILED"; // See documentation for more info on response handling
-                }
-            } *//*catch (ClientProtocolException e) {*/
-            //TODO Handle problems..
-
-            //TimeUnit.SECONDS.sleep(3);
 
             return responseString;
         }

@@ -10,6 +10,28 @@ public final class Mediator {
 
     private static ArrayList<Area> _areaList;
     private static int _selectedArea;
+    private static String _latitude;
+    private static String _longtitude;
+
+    public static String GetLatitude(){
+
+        return  _latitude;
+    }
+
+    public static void SetLatitude(String latitude){
+
+        _latitude = latitude;
+    }
+
+    public static String GetLongtitude(){
+
+        return  _longtitude;
+    }
+
+    public static void SetLongtitude(String longtitude){
+
+        _longtitude = longtitude;
+    }
 
     public static int GetSelectedArea(){
 
