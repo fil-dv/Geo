@@ -203,8 +203,9 @@ public class EditorActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            Mediator.SetPending(result);
+            //String correctResult = result.replaceFirst("\"","");
+            String correctResult = result.replace("\"","");
+            Mediator.SetPending(correctResult);
 
             Intent intent = new Intent(EditorActivity.this, PhotoActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -233,7 +234,7 @@ public class EditorActivity extends AppCompatActivity {
                         StringBuilder sb = new StringBuilder();
                         String line;
                         while ((line = br.readLine()) != null) {
-                            sb.append(line+"\n");
+                            sb.append(line);
                         }
                         br.close();
                         return sb.toString();
