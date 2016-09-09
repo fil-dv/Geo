@@ -293,6 +293,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         HttpURLConnection c = null;
         try {
             URL u = new URL(url);
+
             c = (HttpURLConnection) u.openConnection();
             c.setRequestMethod("GET");
             c.setRequestProperty("Content-length", "0");

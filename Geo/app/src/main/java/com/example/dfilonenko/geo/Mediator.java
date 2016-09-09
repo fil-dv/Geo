@@ -12,6 +12,18 @@ public final class Mediator {
     private static int _selectedArea;
     private static String _latitude;
     private static String _longtitude;
+    private static String _pending;
+
+    public static String GetPending(){
+
+        return  _pending;
+    }
+
+    public static void SetPending(String pending){
+
+        _pending = pending;
+    }
+
 
     public static String GetLatitude(){
 

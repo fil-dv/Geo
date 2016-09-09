@@ -1,6 +1,7 @@
 package com.example.dfilonenko.geo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class EditorActivity extends AppCompatActivity {
     Button btnPhoto;
 
     MySaveTask mst;
+    SetStartTime sst;
     Area area;
 
     boolean isNew;
@@ -75,13 +77,6 @@ public class EditorActivity extends AppCompatActivity {
     }
 
 
-    public void onClickPhoto(View view) {
-        Intent intent = new Intent(EditorActivity.this, PhotoActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
-
     public class MySaveTask extends AsyncTask<Void, Void, Void> {
 
         String GetUrl(){
@@ -97,10 +92,10 @@ public class EditorActivity extends AppCompatActivity {
             String coordStr = "/" + Mediator.GetLatitude() + "/" + Mediator.GetLongtitude() + "/";
 
             String areaStr = idStr + "g"
-                                   + txtRegion.getText() + "g"
-                                   + txtCity.getText() + "g"
-                                   + txtStreet.getText() + "g"
-                                   + txtPhone.getText() + coordStr;
+                    + txtRegion.getText() + "g"
+                    + txtCity.getText() + "g"
+                    + txtStreet.getText() + "g"
+                    + txtPhone.getText() + coordStr;
             String url = "http://www.geo.somee.com/api/Coord/AddOrUpdateArea/" + areaStr;
             return url;
         }
@@ -172,6 +167,94 @@ public class EditorActivity extends AppCompatActivity {
             btnPhoto.setEnabled(true);
         }
     }
-}
 
+    public void onClickPhoto(View view) {
+        sst = new SetStartTime();
+        sst.execute();
+        //Intent intent = new Intent(EditorActivity.this, PhotoActivity.class);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(intent);
+    }
+
+    public class SetStartTime extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String responseString = null;
+            int index = Mediator.GetSelectedArea();
+            Area area = Mediator.GetArea(index);
+            String idStr = String.valueOf(area.GetAreaID());
+
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http")
+                    .authority("www.geo.somee.com")
+                    .appendPath("api")
+                    .appendPath("coord")
+                    .appendPath("SetTime")
+                    .appendQueryParameter("id", idStr + "n");
+
+            String myUrl = builder.build().toString();
+            responseString = getResponse(myUrl, 10000000);
+
+            return responseString;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Mediator.SetPending(result);
+
+            Intent intent = new Intent(EditorActivity.this, PhotoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
+        public String getResponse(String url, int timeout) {
+            HttpURLConnection c = null;
+            try {
+                URL u = new URL(url);
+
+                c = (HttpURLConnection) u.openConnection();
+                c.setRequestMethod("GET");
+                c.setRequestProperty("Content-length", "0");
+                c.setUseCaches(false);
+                c.setAllowUserInteraction(false);
+                c.setConnectTimeout(timeout);
+                c.setReadTimeout(timeout);
+                c.connect();
+                int status = c.getResponseCode();
+
+                switch (status) {
+                    case 200:
+                    case 201:
+                        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line+"\n");
+                        }
+                        br.close();
+                        return sb.toString();
+                }
+
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (c != null) {
+                    try {
+                        c.disconnect();
+                    } catch (Exception ex) {
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+}
 
