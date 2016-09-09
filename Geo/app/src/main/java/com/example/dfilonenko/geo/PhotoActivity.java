@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +21,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PhotoActivity extends Activity {
@@ -34,6 +36,9 @@ public class PhotoActivity extends Activity {
     final String TAG = "myLogs";
 
     ImageView ivPhoto;
+    TextView txtPhoto;
+    int counter;
+
     SetStopTime sst;
 
     @Override
@@ -42,6 +47,8 @@ public class PhotoActivity extends Activity {
         setContentView(R.layout.activity_photo);
         createDirectory();
         //ivPhoto = (ImageView) findViewById(R.id.ivPhoto);
+        txtPhoto = (TextView) findViewById(R.id.txtPhoto);
+        counter = 0;
     }
 
     public void onClickPhoto(View view) {
@@ -60,6 +67,10 @@ public class PhotoActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_CODE_PHOTO) {
             if (resultCode == RESULT_OK) {
+
+                counter++;
+                txtPhoto.setText("      Добавлено " + counter + " фото.");
+
                 if (intent == null) {
                     Log.d(TAG, "Intent is null");
                 } else {
@@ -148,8 +159,13 @@ public class PhotoActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            Toast.makeText(PhotoActivity.this, "Данные успешно внесены в базу.", Toast.LENGTH_LONG).show();
+            try {
+                Toast.makeText(PhotoActivity.this, "Данные успешно внесены в базу.", Toast.LENGTH_LONG).show();
+                //TimeUnit.SECONDS.sleep(1);
+                Intent intent = new Intent(PhotoActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }catch (Exception ex){}
         }
 
         public String getResponse(String url, int timeout) {

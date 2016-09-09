@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_centerHorizontal="true"
     android:padding="5dp">
 
 
@@ -16,8 +17,16 @@
         android:onClick="onClickPhoto"
         android:text="@string/photo">
     </Button>
+
+    <TextView
+        android:layout_marginTop="70dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="21sp"
+        android:id="@+id/txtPhoto"
+        android:gravity="center_vertical"/>
     <Button
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="200dp"
         android:id="@+id/btnFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
